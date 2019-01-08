@@ -1,0 +1,21 @@
+version: '2'
+services:
+  bootnode:
+    image: ethereum/client-go:release-1.8
+    command: bootnode -nodekey /qdata/bootnode/boot.key -addr :30310
+    volumes:
+      - '.:/qdata'
+
+  node1:
+    image: ethereum/client-go:release-1.8
+    command: --datadir /qdata/node1 --syncmode 'full' --port 30311 --rpc --rpcport 8501 --rpcapi 'personal,db,eth,net,web3,txpool,miner,clique' --bootnodes enode://8223d73d6af37d770e8298252431ea6495d5b222a6052bcfc08a6f2f3e8c3570d9882a3e81fec406206c9d3d277d59a253a16c99b18227e92fd1302e728ff3d3@172.17.0.3:30310 --networkid 2019 --gasprice '0' --unlock '0x0453b3761d9fca9439adef8ce17d51cf278baf00' --password /qdata/node1/password.txt --mine
+    command: --datadir /qdata/node2 init /qdata/genesis.json
+    volumes:
+      - '.:/qdata'
+
+  node2:
+    image: ethereum/client-go:release-1.8
+    command: --datadir /qdata/node2 --syncmode 'full' --port 30311 --rpc --rpcport 8501 --rpcapi 'personal,db,eth,net,web3,txpool,miner,clique' --bootnodes enode://8223d73d6af37d770e8298252431ea6495d5b222a6052bcfc08a6f2f3e8c3570d9882a3e81fec406206c9d3d277d59a253a16c99b18227e92fd1302e728ff3d3@172.17.0.3:30310 --networkid 2019 --gasprice '0' --unlock '0x37a809060f2cd38aefee06369b4eb543a3cba6c0' --password /qdata/node2/password.txt --mine
+    volumes:
+      - '.:/qdata'
+
