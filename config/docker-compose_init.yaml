@@ -1,14 +1,19 @@
 version: '2'
 services:
+  bootnode:
+    image: ethereum/client-go:release-1.9
+    command: --datadir /qdata/bootnode --nousb init /qdata/genesis.json
+    volumes:
+      - '.:/qdata'
+
   init_node1:
-    image: ethereum/client-go:release-1.8
-    command: --datadir /qdata/node1 init /qdata/genesis.json
+    image: ethereum/client-go:release-1.9
+    command: --datadir /qdata/node1 --nousb init /qdata/genesis.json
     volumes:
       - '.:/qdata'
 
   init_node2:
-    image: ethereum/client-go:release-1.8
-    command: --datadir /qdata/node2 init /qdata/genesis.json
+    image: ethereum/client-go:release-1.9
+    command: --datadir /qdata/node2 --nousb init /qdata/genesis.json
     volumes:
       - '.:/qdata'
-
